@@ -1,13 +1,29 @@
 FROM python:3.10-slim-buster
+
+# बेसिक पैकेज इंस्टॉल करो
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends python3-pip git \
+    && apt-get install -y --no-install-recommends \
+       python3-pip \
+       git \
+       gcc \
+       libffi-dev \
+       libssl-dev \
+       make \
     && rm -rf /var/lib/apt/lists/*
+
+# pip upgrade करो
 RUN pip3 install --upgrade pip
 
+# Project folder बनाओ
 RUN mkdir /Insta-DL
 WORKDIR /Insta-DL
-#RUN apt update && apt upgrade -y && apt install ffmpeg python3 python3-pip apt-utils -y
+
+# Requirements install करो
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir -U -r requirements.txt
+
+# बाकी code copy करो
 COPY . .
+
+# Start command
 CMD ["python3", "bot.py"]
