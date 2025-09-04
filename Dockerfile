@@ -1,11 +1,12 @@
-FROM python:3.10-slim-buster
+FROM python:3.10-slim-bullseye
 
-# बेसिक पैकेज इंस्टॉल करो
+# सिस्टम dependencies install करो
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
        python3-pip \
        git \
        gcc \
+       ffmpeg \
        libffi-dev \
        libssl-dev \
        make \
